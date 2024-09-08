@@ -8,6 +8,8 @@ from  dataclasses import dataclass
 from src.Components.data_transformation import DataTransformation
 from src.Components.data_transformation import DataTransformationconfig
 from src.Components.model_trainer import ModelTrainer
+import mysql.connector
+
 @dataclass
 class DataIngestionconfig:
     train_data_path : str= os.path.join('artifects', 'train.csv')
@@ -21,7 +23,18 @@ class DataIngestion:
  def initiate_data_ingestion(self) -> object:
    logging.info("Data Ingestion initiated")
    try:
-       df = pd.read_csv(r'D:\python\pythonProject\ml_project\notebook\data\stud.csv')
+       connection = mysql.connector.connect(
+           host="localhost",
+           user="root",
+           password="#G4Great",
+           database="my_database"
+       )
+       query = 'SELECT * FROM stud'
+       df = pd.read_sql(query, connection)
+       connection.close()
+
+
+       # df = pd.read_csv(r'D:\python\pythonProject\ml_project\notebook\data\stud.csv')
        logging.info('Read the dataset as dataframe')
 
        os.makedirs(os.path.dirname(self.ingestion_config.train_data_path), exist_ok=True)
