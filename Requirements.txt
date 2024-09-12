@@ -5,5 +5,5 @@ scikit-learn
 dill
 catboost
 xgboost
-mysql-connector-python
+Django
 #-e .
