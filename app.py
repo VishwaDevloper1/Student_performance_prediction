@@ -4,11 +4,8 @@ from flask import request
 from src.pipeline.prediction_pipeline import custom_data,prediction_pipeline
 app = Flask(__name__)
 
-@app.route('/',methods=['GET'])
-def index():
-    return render_template('index.html')
 
-@app.route('/predictdata',methods=['GET','POST'])
+@app.route('/',methods=['GET','POST'])
 def prediction():
     if request.method == 'GET':
         return render_template("home.html")
